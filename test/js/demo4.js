@@ -145,71 +145,71 @@
 // }
 
 
-// (function(){
-//     var docs=[
-//         {id:1,words:['hello','world']},
-//         {id:2,words:['hello','kids']},
-//         {id:3,words:['zzzz','hello']},
-//         {id:4,words:['world','kids']},
-//     ];
-//     function findDocList(docs,words){
-//         let allDocs=[];
-//         for(let i=0;i<docs.length;i++){
-//             var hasWord=true;
-//             for(let j=0;j<words.length;j++){
-//                 if(docs[i].words.indexOf(words[j])==-1){
-//                     hasWord=false;
-//                 }
-//             };
-//             if(hasWord==true){
-//                 let oneDoc='文档'+docs[i].id;
-//                 allDocs.push(oneDoc);
-//             }
-//         }
-//         return allDocs;
-//     }
-//     console.log(findDocList(docs,['hello','world']));
-// })();
-
-!function(global){
-    function DetectorBase(configs){
-        if(!this instanceof DetectorBase){
-            throw new Error("Do not invoke without new.");//要用new调用
+(function(){
+    function findDocList(docs,words){
+        let allDocs=[];
+        for(let i=0;i<docs.length;i++){
+            let hasWord=true;
+            for(let j=0;j<words.length;j++){
+                if(docs[i].words.indexOf(words[j])==-1){
+                    hasWord=false;
+                }
+            };
+            if(hasWord==true){
+                let oneDoc='文档'+docs[i].id;
+                allDocs.push(oneDoc);
+            }
         }
-        this.configs=configs;
-        this.analyze();
+        return allDocs;
     }
-    DetectorBase.prototype.detect=function(){
-        throw new Error("Not implemented");//?????????
-    };
-    DetectorBase.prototype.analyze=function(){
-        console.log("analyzing..");
-        this.data="##data##";
-    };
-    function LinkDetector(links){
-        if(!this instanceof LinkDetector){
-            throw new Error("Do not invoke without new.");//要用new调用
-        };
-        this.links=links;
-        DetectorBase.apply(this,arguments)
-    };
-    inherit(LinkDetector,DetectorBase);
-    LinkDetector.prototype.detect=function(){
-        console.log("Loading data:"+this.data);
-    };
-    Object.freeze(DetectorBase);//冻结，不允许改变
-    Object.freeze(DetectorBase.prototype);
-    Object.freeze(LinkDetector);
-    Object.freeze(LinkDetector.prototype);
-    Object.defineProperties(global,{
-        LinkDetector:{value:LinkDetector},
-        DetectorBase:{value:DetectorBase}
-    });
-    function inherit(subClass,superClass){
-        subClass.prototype=Object.create(superClass.prototype);
-        subClass.prototype.Constructor=subClass;
-    }
-}(this);
+    let docs=[
+        {id:1,words:['hello','world']},
+        {id:2,words:['hello','kids']},
+        {id:3,words:['zzzz','hello']},
+        {id:4,words:['world','kids']},
+    ];
+    console.log(findDocList(docs,['hello','world']));
+})();
 
-   var cd=new LinkDetector("abc#def#ghi");
-   cd.detect();
+// !function(global){
+//     function DetectorBase(configs){
+//         if(!this instanceof DetectorBase){
+//             throw new Error("Do not invoke without new.");//要用new调用
+//         }
+//         this.configs=configs;
+//         this.analyze();
+//     }
+//     DetectorBase.prototype.detect=function(){
+//         throw new Error("Not implemented");//?????????
+//     };
+//     DetectorBase.prototype.analyze=function(){
+//         console.log("analyzing..");
+//         this.data="##data##";
+//     };
+//     function LinkDetector(links){
+//         if(!this instanceof LinkDetector){
+//             throw new Error("Do not invoke without new.");//要用new调用
+//         };
+//         this.links=links;
+//         DetectorBase.apply(this,arguments)
+//     };
+//     inherit(LinkDetector,DetectorBase);
+//     LinkDetector.prototype.detect=function(){
+//         console.log("Loading data:"+this.data);
+//     };
+//     Object.freeze(DetectorBase);//冻结，不允许改变
+//     Object.freeze(DetectorBase.prototype);
+//     Object.freeze(LinkDetector);
+//     Object.freeze(LinkDetector.prototype);
+//     Object.defineProperties(global,{
+//         LinkDetector:{value:LinkDetector},
+//         DetectorBase:{value:DetectorBase}
+//     });
+//     function inherit(subClass,superClass){
+//         subClass.prototype=Object.create(superClass.prototype);
+//         subClass.prototype.Constructor=subClass;
+//     }
+// }(this);
+//
+//    var cd=new LinkDetector("abc#def#ghi");
+//    cd.detect();

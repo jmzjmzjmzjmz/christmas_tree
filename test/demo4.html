@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js基础</title>
+    <style>
+        #div1{
+            width:100px;
+            height:100px;
+            background: red;
+        }
+        #div2{
+            width:50px;
+            height:50px;
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+   <div id="div1">
+       <div id="div2">
+
+       </div>
+   </div>
+   <canvas id="canvas" width="200" height="200"></canvas>
+<script src="./js/demo4.js"></script>
+   <script>
+       var canvas=document.getElementById("canvas");
+       var cxt=canvas.getContext("2d");
+       cxt.beginPath()
+       cxt.moveTo(0,0);
+       cxt.lineTo(20,20);
+       cxt.strokeStyle="red";
+       cxt.stroke();
+       cxt.closePath();
+       cxt.beginPath();
+       cxt.fillStyle="green";
+       cxt.fillRect(20,20,100,100);
+       cxt.closePath();
+
+   </script>
+</body>
+</html>

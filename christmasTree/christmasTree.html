@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>christmas tree</title>
+</head>
+<body>
+    <canvas id="tree" height="200" width="200"></canvas>
+    <script>
+       function drawTree(){
+           var canvas=document.getElementById("tree");
+           if(canvas.getContext){
+               var cxt=canvas.getContext("2d");
+               cxt.fillStyle="green";
+               cxt.fillRect(60,50,40,90);
+               cxt.fillRect(40,110,80,40);
+
+               //leaves
+               a=60;
+               b=10;
+               for(var i=0;i<4;i++){
+                   drawLeaf(-20+a-(i*10),b+(i*30),cxt,"left");
+                   drawLeaf(20+a+(i*10),b+(i*30),cxt,"right");
+               }
+
+               //stump
+               cxt.fillStyle="brown";
+               cxt.fillRect(70,120,20,40);
+
+               //star
+               drawStar(cxt,80,20,20,5,0.5);
+           }else{
+               alert("your browser doesn't support")
+           }
+       }
+
+       function drawLeaf(x,y,cxt,style){
+           cxt.beginPath();
+           cxt.fillStyle="green";
+           if(style=="right"){
+               cxt.moveTo(x,y);
+               cxt.lineTo(x+40,y+40);
+               cxt.lineTo(x,y+40);
+           }else{
+               cxt.moveTo(x+40,y);
+               cxt.lineTo(x,y+40);
+               cxt.lineTo(x+40,y+40);
+           }
+           cxt.fill();
+       }
+       function drawStar(cxt,x,y,r,p,m){
+           cxt.fillStyle="gold";
+           cxt.beginPath();
+           cxt.translate(x,y);
+           cxt.moveTo(0,0-r);
+           for(var i=0;i<p;i++){
+               cxt.rotate(Math.PI/p);
+               cxt.lineTo(0,0-(r*m));
+               cxt.rotate(Math.PI/p);
+               cxt.lineTo(0,0-r);
+           }
+           cxt.fill();
+           cxt.restore();
+       }
+       window.setTimeout(drawTree,1000);
+    </script>
+</body>
+</html>
